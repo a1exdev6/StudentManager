@@ -1,4 +1,27 @@
 #pragma once
+//学生结构
+typedef struct Student
+{
+	unsigned long long number; //学号
+	char name[32];			   //姓名
+	float chinese;			   //语文成绩
+	float math;				   //数学成绩
+	float english;			   //英语成绩
+}Student;
+
+//学生链表节点结构
+typedef struct Node
+{
+	Student stu;				 //学生信息
+	struct Node* next;	         //指向下一个节点的指针
+
+}Node;
+//链表
+typedef struct List
+{
+	Node* front; //指向第一个节点
+	int size;   //链表中学生的数量
+}List;
 //菜单功能
 typedef enum MenuOptions
 {
@@ -15,4 +38,10 @@ typedef enum MenuOptions
 //打印菜单并提示用户选择功能
 
 int menu();
+
+//录入学生信息
+void entryStudent(List* list);
+
+//打印学生信息
+void printStudent(List* list);
 
