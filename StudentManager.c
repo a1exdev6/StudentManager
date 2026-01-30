@@ -66,3 +66,41 @@ void printStudent(List* list) {
 		curNode = curNode->next;
 	}
 }
+
+void saveStudent(List* list)
+{
+	//打开文件
+	FILE* fp = fopen("students.data", "wb");
+	if(!fp){
+		perror("file open failed\n");
+		return;
+	}
+	//写入学生信息
+	Node* curNode = list->front;
+	while (curNode != NULL) {
+		fwrite(&curNode->stu, sizeof(Student), 1, fp);
+		curNode = curNode->next;
+	};
+	//关闭文件
+	fclose(fp);
+}
+
+void saveStudentHuman(List* list)
+{
+	//打开文件
+	FILE* fp = fopen("students.txt", "w");
+	if (!fp) {
+		perror("file open failed\n");
+		return;
+	}
+	//写入学生信息
+	Node* curNode = list->front;
+	while (curNode != NULL) {
+		fprintf(fp, "学号:%llu 姓名:%s 语文:%.1f 数学:%.1f 英语:%.1f\n",
+			curNode->stu.number, curNode->stu.name,
+			curNode->stu.chinese, curNode->stu.math, curNode->stu.english);
+		curNode = curNode->next;
+	};
+	//关闭文件
+	fclose(fp);
+}

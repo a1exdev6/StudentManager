@@ -45,3 +45,8 @@ void entryStudent(List* list);
 //打印学生信息
 void printStudent(List* list);
 
+//保存学生信息,以二进制的方式保存（打开后文件中的内容看不懂）
+void saveStudent(List* list);
+//以人类可读的方式保存学生信息
+void saveStudentHuman(List* list);
+

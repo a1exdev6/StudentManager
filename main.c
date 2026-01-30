@@ -19,6 +19,8 @@ int main() {
 			printStudent(&list);
 			break;
 		case Save:
+			/*saveStudent(&list);*/
+			saveStudentHuman(&list);
 			break;
 		case Read:
 			break;
