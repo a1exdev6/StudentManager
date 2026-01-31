@@ -54,4 +54,5 @@ void readStudent(List* list);
 //以人类可读的方式读取学生信息
 void readStudentHuman(List* list);
 
-
+//统计学生信息
+void statisticsStudentCount(List* list);

@@ -168,3 +168,15 @@ void readStudentHuman(List* list)
 	//关闭文件
 	fclose(fp);
 }
+
+void statisticsStudentCount(List* list)
+{
+	//printf("学生总人数为：%d\n", list->size);
+	int count = 0;
+	Node* curNode = list->front;
+	while (curNode != NULL) {
+		count++;
+		curNode = curNode->next;
+	}
+	printf("学生总人数为：%d\n", count);
+}

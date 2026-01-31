@@ -27,6 +27,7 @@ int main() {
 			readStudentHuman(&list);
 			break;
 		case Statistics:
+			statisticsStudentCount(&list);
 			break;
 		case Find:
 			break;
