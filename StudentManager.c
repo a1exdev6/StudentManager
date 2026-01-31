@@ -1,6 +1,19 @@
 #include "StudentManager.h"
 #include<stdio.h>
 #include<malloc.h>
+
+static Node* CreateNode()
+{
+	//创建节点
+	Node* node = malloc(sizeof(Node));
+	if (!node)
+	{
+		printf("malloc failed\n");
+		return NULL;
+	}
+	node->next = NULL;
+	return node;
+}
 int menu() {
 	printf("************************************\n");
 	printf("*     欢迎使用高校成绩管理系统     *\n");
@@ -26,14 +39,7 @@ int menu() {
 
 void entryStudent(List* list)
 { 
-	//创建节点
-	Node* node = malloc(sizeof(Node));
-	if(!node)
-	{
-		printf("malloc failed\n");
-		return;
-	}
-	node->next = NULL;
+	Node* node = CreateNode();
 	//输入学生信息
 	printf("<-- 输入学生学号 -->\n");
 	scanf("%llu", &node->stu.number);
@@ -96,11 +102,69 @@ void saveStudentHuman(List* list)
 	//写入学生信息
 	Node* curNode = list->front;
 	while (curNode != NULL) {
-		fprintf(fp, "学号:%llu 姓名:%s 语文:%.1f 数学:%.1f 英语:%.1f\n",
+		fprintf(fp, "%llu %s %.1f %.1f %.1f\n",
 			curNode->stu.number, curNode->stu.name,
 			curNode->stu.chinese, curNode->stu.math, curNode->stu.english);
 		curNode = curNode->next;
 	};
+	//关闭文件
+	fclose(fp);
+}
+
+void readStudent(List* list)
+{
+	//打开文件
+	FILE* fp = fopen("students.data", "rb");
+	if (!fp) {
+		perror("file open failed\n");
+		return;
+	}
+	//读取学生信息
+	while(!feof(fp))
+	{
+		Node* node = CreateNode();
+		if (!node)
+			break;
+		size_t len = fread(&node->stu, sizeof(Student), 1, fp);
+		if (len == 0)
+		{
+			free(node);
+			break;
+		}
+		//插入到链表中
+		node->next = list->front;
+		list->front = node;
+		list->size++;
+	}
+	//关闭文件
+	fclose(fp);
+}
+
+void readStudentHuman(List* list)
+{
+	//打开文件
+	FILE* fp = fopen("students.txt", "r");
+	if (!fp) {
+		perror("file open failed\n");
+		return;
+	}
+	//读取学生文件
+	while (!feof(fp))
+	{
+		Node* node = CreateNode();
+		if(!node)
+			break;
+		if (5 != fscanf(fp, "%llu %s %f %f %f\n", &node->stu.number, node->stu.name,
+			&node->stu.chinese, &node->stu.math, &node->stu.english))
+		{
+			free(node);
+			break;
+		}
+		//插入链表
+		node->next = list->front;
+		list->front = node;
+		list->size++;
+	}
 	//关闭文件
 	fclose(fp);
 }

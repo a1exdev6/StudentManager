@@ -19,10 +19,12 @@ int main() {
 			printStudent(&list);
 			break;
 		case Save:
-			/*saveStudent(&list);*/
+			//saveStudent(&list);
 			saveStudentHuman(&list);
 			break;
 		case Read:
+			//readStudent(&list);
+			readStudentHuman(&list);
 			break;
 		case Statistics:
 			break;

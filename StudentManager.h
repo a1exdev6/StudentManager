@@ -49,4 +49,9 @@ void printStudent(List* list);
 void saveStudent(List* list);
 //以人类可读的方式保存学生信息
 void saveStudentHuman(List* list);
+//读取学生信息,二进制方式读取
+void readStudent(List* list);
+//以人类可读的方式读取学生信息
+void readStudentHuman(List* list);
+
 
