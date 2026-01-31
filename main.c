@@ -30,7 +30,19 @@ int main() {
 			statisticsStudentCount(&list);
 			break;
 		case Find:
+		{
+			Node* node = findStudent(&list);
+			if(!node)
+				printf("未找到该学生信息\n");
+			else {
+				printf("学号：%llu\n", node->stu.number);
+				printf("姓名：%s\n", node->stu.name);
+				printf("语文成绩：%.2f\n", node->stu.chinese);
+				printf("数学成绩：%.2f\n", node->stu.math);
+				printf("英语成绩：%.2f\n", node->stu.english);
+			}
 			break;
+		}
 		case Alter:
 			break;
 		case Remove:

@@ -1,6 +1,7 @@
 #include "StudentManager.h"
 #include<stdio.h>
 #include<malloc.h>
+#include<string.h>
 
 static Node* CreateNode()
 {
@@ -169,6 +170,7 @@ void readStudentHuman(List* list)
 	fclose(fp);
 }
 
+//统计学生人数
 void statisticsStudentCount(List* list)
 {
 	//printf("学生总人数为：%d\n", list->size);
@@ -179,4 +181,25 @@ void statisticsStudentCount(List* list)
 		curNode = curNode->next;
 	}
 	printf("学生总人数为：%d\n", count);
+}
+
+//查找学生信息
+Node* findStudent(List* list)
+{
+	char buffer[32];
+	printf("<-- 请输入要查找的学生学号/姓名 -->\n");
+	scanf("%s", buffer);
+	//尝试把buffer转成整型
+	unsigned long long number=-1;
+	sscanf(buffer, "%llu", &number);
+	Node* curNode = list->front;
+	while (curNode != NULL) {
+		if (strcmp(curNode->stu.name, buffer) == 0||
+			curNode->stu.number==number)
+		{
+			return curNode;
+		}
+		curNode = curNode->next;
+	}
+	return NULL;
 }
