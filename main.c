@@ -44,10 +44,12 @@ int main() {
 			break;
 		}
 		case Alter:
+			alterStudent(&list);
 			break;
 		case Remove:
 			break;
 		case Quit:
+			exit(0);
 			break;
 		default:
 			break;

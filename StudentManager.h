@@ -59,3 +59,6 @@ void statisticsStudentCount(List* list);
 
 //查找学生信息
 Node* findStudent(List* list);
+
+//修改学生信息
+void alterStudent(List* list);

@@ -203,3 +203,33 @@ Node* findStudent(List* list)
 	}
 	return NULL;
 }
+
+//修改学生信息
+void alterStudent(List* list)
+{
+	char buffer[32];
+	printf("<-- 请输入要修改的学生学号/姓名 -->\n");
+	scanf("%s", buffer);
+	//尝试把buffer转成整型
+	unsigned long long number = -1;
+	sscanf(buffer, "%llu", &number);
+	Node* curNode = list->front;
+	while (curNode != NULL) {
+		if (strcmp(curNode->stu.name, buffer) == 0 ||
+			curNode->stu.number == number)
+		{
+			printf("请输入要修改的学生的成绩信息：\n");
+			printf("<-- 语文成绩 -->\n");
+			scanf("%f", &curNode->stu.chinese);
+			printf("<-- 数学成绩 -->\n");
+			scanf("%f", &curNode->stu.math);
+			printf("<-- 英语成绩 -->\n");
+			scanf("%f", &curNode->stu.english);
+			printf("学生信息修改成功!!!\n");
+			break;
+		}
+		curNode = curNode->next;
+	}
+	if(curNode==NULL)
+		printf("未找到该学生信息，修改失败！\n");
+}
