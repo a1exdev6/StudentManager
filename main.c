@@ -2,13 +2,15 @@
 #include<stdlib.h>
 #include"StudentManager.h"
 #include<string.h>
-
+#include<stdbool.h>
 int main() {
 	//创建链表
 	List list = { 0 };
 	//内存设置
 	memset(&list, 0, sizeof(List));
-	while (1) {
+	bool isRunning = true;
+	while (isRunning)
+	{
 		MenuOptions m;
 		switch (menu())
 		{
@@ -50,16 +52,20 @@ int main() {
 			removeStudent(&list);
 			break;
 		case Quit:
-			exit(0);
+			isRunning = false;
 			break;
 		default:
 			break;
 		}
-		
-		//让程序暂停一下
-		system("pause");
-		//清屏重新出现菜单
-		system("cls");
+		if (isRunning) {
+			//让程序暂停一下
+			system("pause");
+			//清屏重新出现菜单
+			system("cls");
+		}
 	}
+	//自动保存数据
+	saveStudent(&list);
+	saveStudentHuman(&list);
 	return 0;
 }
