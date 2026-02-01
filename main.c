@@ -47,6 +47,7 @@ int main() {
 			alterStudent(&list);
 			break;
 		case Remove:
+			removeStudent(&list);
 			break;
 		case Quit:
 			exit(0);

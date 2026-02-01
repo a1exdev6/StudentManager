@@ -62,3 +62,6 @@ Node* findStudent(List* list);
 
 //修改学生信息
 void alterStudent(List* list);
+
+//删除学生信息
+void removeStudent(List* list);

@@ -38,6 +38,7 @@ int menu() {
 
 }
 
+//录入学生信息
 void entryStudent(List* list)
 { 
 	Node* node = CreateNode();
@@ -58,6 +59,7 @@ void entryStudent(List* list)
 	list->size++;
 }
 
+//打印学生信息
 void printStudent(List* list) {
 	printf("************************************\n");
 	printf("*     欢迎使用高校成绩管理系统     *\n");
@@ -74,6 +76,7 @@ void printStudent(List* list) {
 	}
 }
 
+//保存学生信息,以二进制的方式保存（打开后文件中的内容看不懂）
 void saveStudent(List* list)
 {
 	//打开文件
@@ -92,6 +95,7 @@ void saveStudent(List* list)
 	fclose(fp);
 }
 
+//以人类可读的方式保存学生信息
 void saveStudentHuman(List* list)
 {
 	//打开文件
@@ -112,6 +116,7 @@ void saveStudentHuman(List* list)
 	fclose(fp);
 }
 
+//读取学生信息,二进制方式读取
 void readStudent(List* list)
 {
 	//打开文件
@@ -141,6 +146,7 @@ void readStudent(List* list)
 	fclose(fp);
 }
 
+//以人类可读的方式读取学生信息
 void readStudentHuman(List* list)
 {
 	//打开文件
@@ -186,6 +192,10 @@ void statisticsStudentCount(List* list)
 //查找学生信息
 Node* findStudent(List* list)
 {
+	if (list->size == 0)
+	{
+		return NULL;
+	}
 	char buffer[32];
 	printf("<-- 请输入要查找的学生学号/姓名 -->\n");
 	scanf("%s", buffer);
@@ -207,6 +217,11 @@ Node* findStudent(List* list)
 //修改学生信息
 void alterStudent(List* list)
 {
+	if (list->size == 0)
+	{
+		printf("当前无学生信息，无法修改！\n");
+		return;
+	}
 	char buffer[32];
 	printf("<-- 请输入要修改的学生学号/姓名 -->\n");
 	scanf("%s", buffer);
@@ -232,4 +247,45 @@ void alterStudent(List* list)
 	}
 	if(curNode==NULL)
 		printf("未找到该学生信息，修改失败！\n");
+}
+
+//删除学生信息
+void removeStudent(List* list)
+{
+	if(list->size==0)
+	{
+		printf("当前无学生信息，无法删除！\n");
+		return;
+	}
+	char buffer[32];
+	printf("<-- 请输入要修改的学生学号/姓名 -->\n");
+	scanf("%s", buffer);
+	//尝试把buffer转成整型
+	unsigned long long number = -1;
+	sscanf(buffer, "%llu", &number);
+	Node* curNode = list->front;
+	Node* prevNode = NULL;
+	while (curNode != NULL) {
+		if (strcmp(curNode->stu.name, buffer) == 0 ||
+			curNode->stu.number == number)
+		{
+			break;
+		}
+		prevNode = curNode;
+		curNode = curNode->next;
+	}
+	//是否找到
+	if(curNode)
+	{
+		//删除的是第一个节点
+		if(prevNode==NULL)
+		{
+			list->front = curNode->next;
+		}
+		else {
+			prevNode->next = curNode->next;
+		}
+		free(curNode);
+		list->size--;
+	}
 }
