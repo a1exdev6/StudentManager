@@ -62,8 +62,42 @@ void entryStudent(List* list)
 	list->size++;
 }
 
+// 按总成绩从高到低排序链表
+void sortStudentBySum(List* list) {
+	if (list->front == NULL || list->front->next == NULL) {
+		return; // 空链表或只有一个节点时无需排序
+	}
+
+	int swapped;
+	Node* ptr1;
+	Node* lptr = NULL;
+
+	// 冒泡排序核心逻辑
+	do {
+		swapped = 0;
+		ptr1 = list->front;
+
+		while (ptr1->next != lptr) {
+			// 比较当前节点与下一个节点的总成绩
+			if (ptr1->stu.sum < ptr1->next->stu.sum) {
+				// 交换两个节点的学生数据
+				Student temp = ptr1->stu;
+				ptr1->stu = ptr1->next->stu;
+				ptr1->next->stu = temp;
+				swapped = 1;
+			}
+			ptr1 = ptr1->next;
+		}
+		lptr = ptr1;
+	} while (swapped);
+}
+
+
 //打印学生信息
 void printStudent(List* list) {
+	//先按总成绩排序
+	sortStudentBySum(list);
+	//再打印表头
 	printf("********************************************\n");
 	printf("*        欢迎使用高校成绩管理系统          *\n");
 	printf("********************************************\n");
@@ -78,6 +112,8 @@ void printStudent(List* list) {
 		curNode = curNode->next;
 	}
 }
+
+
 
 //保存学生信息,以二进制的方式保存（打开后文件中的内容看不懂）
 void saveStudent(List* list)
@@ -294,3 +330,5 @@ void removeStudent(List* list)
 		list->size--;
 	}
 }
+
+

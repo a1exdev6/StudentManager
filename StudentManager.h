@@ -66,3 +66,4 @@ void alterStudent(List* list);
 
 //删除学生信息
 void removeStudent(List* list);
+
