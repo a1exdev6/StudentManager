@@ -12,6 +12,7 @@ static Node* CreateNode()
 		printf("malloc failed\n");
 		return NULL;
 	}
+	node->stu.sum = 0;
 	node->next = NULL;
 	return node;
 }
@@ -53,6 +54,8 @@ void entryStudent(List* list)
 	scanf("%f", &node->stu.math);
 	printf("<-- 输入学生英语成绩 -->\n");
 	scanf("%f", &node->stu.english);
+	//计算总分
+	node->stu.sum = node->stu.chinese + node->stu.math + node->stu.english;
 	//插入到链表中
 	node->next = list->front;
 	list->front = node;
@@ -61,17 +64,17 @@ void entryStudent(List* list)
 
 //打印学生信息
 void printStudent(List* list) {
-	printf("************************************\n");
-	printf("*     欢迎使用高校成绩管理系统     *\n");
-	printf("************************************\n");
-	printf("*学号 * 姓名 * 语文 *  数学 *  英语*\n");
-	printf("************************************\n");
+	printf("********************************************\n");
+	printf("*        欢迎使用高校成绩管理系统          *\n");
+	printf("********************************************\n");
+	printf("*学号 * 姓名 * 语文 *  数学 *  英语 * 总分 *\n");
+	printf("********************************************\n");
 
 	//遍历链表
 	Node* curNode = list->front;
 	while (curNode != NULL) {
-		printf("* %llu * %s * %.1f *  %.1f *  %.1f *\n", curNode->stu.number,curNode->stu.name,
-			curNode->stu.chinese,curNode->stu.math,curNode->stu.english);
+		printf("* %llu * %s * %.1f *  %.1f *  %.1f * %.1f\n", curNode->stu.number,curNode->stu.name,
+			curNode->stu.chinese,curNode->stu.math,curNode->stu.english,curNode->stu.sum);
 		curNode = curNode->next;
 	}
 }
@@ -107,9 +110,9 @@ void saveStudentHuman(List* list)
 	//写入学生信息
 	Node* curNode = list->front;
 	while (curNode != NULL) {
-		fprintf(fp, "%llu %s %.1f %.1f %.1f\n",
+		fprintf(fp, "%llu %s %.1f %.1f %.1f %.1f\n",
 			curNode->stu.number, curNode->stu.name,
-			curNode->stu.chinese, curNode->stu.math, curNode->stu.english);
+			curNode->stu.chinese, curNode->stu.math, curNode->stu.english,curNode->stu.sum);
 		curNode = curNode->next;
 	};
 	//关闭文件
@@ -161,8 +164,8 @@ void readStudentHuman(List* list)
 		Node* node = CreateNode();
 		if(!node)
 			break;
-		if (5 != fscanf(fp, "%llu %s %f %f %f\n", &node->stu.number, node->stu.name,
-			&node->stu.chinese, &node->stu.math, &node->stu.english))
+		if (6 != fscanf(fp, "%llu %s %f %f %f %f\n", &node->stu.number, node->stu.name,
+			&node->stu.chinese, &node->stu.math, &node->stu.english,&node->stu.sum))
 		{
 			free(node);
 			break;
@@ -240,6 +243,8 @@ void alterStudent(List* list)
 			scanf("%f", &curNode->stu.math);
 			printf("<-- 英语成绩 -->\n");
 			scanf("%f", &curNode->stu.english);
+			//重新计算总分
+			curNode->stu.sum = curNode->stu.chinese + curNode->stu.math + curNode->stu.english;
 			printf("学生信息修改成功!!!\n");
 			break;
 		}

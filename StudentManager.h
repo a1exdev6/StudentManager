@@ -7,6 +7,7 @@ typedef struct Student
 	float chinese;			   //语文成绩
 	float math;				   //数学成绩
 	float english;			   //英语成绩
+	float sum;				   //总分
 }Student;
 
 //学生链表节点结构
