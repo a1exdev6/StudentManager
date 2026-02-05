@@ -33,7 +33,8 @@ typedef enum MenuOptions
 	Statistics = 5, //统计学生人数
 	Find = 6,       //查找学生信息
 	Alter = 7,      //修改学生信息 
-	Remove = 8,     //删除学生信息
+	Add = 8,        //增加学生信息
+	Remove = 9,     //删除学生信息
 	Quit = 0,       //退出系统
 }MenuOptions;
 //打印菜单并提示用户选择功能
@@ -63,6 +64,9 @@ Node* findStudent(List* list);
 
 //修改学生信息
 void alterStudent(List* list);
+
+//增加学生信息
+void addStudent(List* list);
 
 //删除学生信息
 void removeStudent(List* list);

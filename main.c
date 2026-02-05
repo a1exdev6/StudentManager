@@ -48,6 +48,9 @@ int main() {
 		case Alter:
 			alterStudent(&list);
 			break;
+		case Add:
+			addStudent(&list);
+			break;
 		case Remove:
 			removeStudent(&list);
 			break;

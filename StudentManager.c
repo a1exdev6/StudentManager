@@ -29,7 +29,8 @@ int menu() {
 	printf("*         5.统计学生人数           *\n");
 	printf("*         6.查找学生信息           *\n");
 	printf("*         7.修改学生信息           *\n");
-	printf("*         8.删除学生信息           *\n");
+	printf("*         8.新增学生信息           *\n");
+	printf("*         9.删除学生信息           *\n");
 	printf("*         0.退出系统               *\n");
 	printf("************************************\n");
 	printf("select>");
@@ -288,6 +289,29 @@ void alterStudent(List* list)
 	}
 	if(curNode==NULL)
 		printf("未找到该学生信息，修改失败！\n");
+}
+
+//增加学生信息
+void addStudent(List* list)
+{
+	Node* node = CreateNode();
+	//输入学生信息
+	printf("<-- 输入学生学号 -->\n");
+	scanf("%llu", &node->stu.number);
+	printf("<-- 输入学生姓名 -->\n");
+	scanf("%s", node->stu.name);
+	printf("<-- 输入学生语文成绩 -->\n");
+	scanf("%f", &node->stu.chinese);
+	printf("<-- 输入学生数学成绩 -->\n");
+	scanf("%f", &node->stu.math);
+	printf("<-- 输入学生英语成绩 -->\n");
+	scanf("%f", &node->stu.english);
+	//计算总分
+	node->stu.sum = node->stu.chinese + node->stu.math + node->stu.english;
+	//插入到链表中
+	node->next = list->front;
+	list->front = node;
+	list->size++;
 }
 
 //删除学生信息
