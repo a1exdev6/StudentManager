@@ -71,6 +71,8 @@ void addStudent(List* list);
 //删除学生信息
 void removeStudent(List* list);
 
+
 // 重命名为避免冲突
 void addStudentToList(List* list, Student stu);
 void saveStudentsToFile(List* list);
+

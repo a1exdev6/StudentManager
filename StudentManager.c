@@ -41,8 +41,6 @@ int menu() {
 }
 
 
-
-
 //录入学生信息
 void entryStudent(List* list)
 { 
@@ -158,10 +156,6 @@ void saveStudentHuman(List* list)
 	//关闭文件
 	fclose(fp);
 }
-
-
-
-
 //读取学生信息,二进制方式读取
 void readStudent(List* list)
 {
